@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.measuredata.entity.MeasureRainfall;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
-
 /**
  * <p>
  * 降水表 Mapper 接口
