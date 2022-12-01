@@ -1,7 +1,7 @@
 package com.measuredata.service;
 
-import com.measuredata.entity.MeasureRainfall;
-import com.measuredata.mapper.MeasureRainfallMapper;
+import com.measuredata.entity.MeasureSunshine;
+import com.measuredata.mapper.MeasureSunshineMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.ExecutorType;
@@ -18,43 +18,41 @@ import java.util.Objects;
 
 @Service
 @Slf4j
-public class MeasureRainfallServiceImpl implements MeasureRainfallService {
+public class MeasureSunshineServiceImpl implements MeasureSunshineService {
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
 
     @SneakyThrows
     @Override
     public void write2DB() {
+        log.error("==========================日照开始==========================");
+        log.error("==========================日照开始==========================");
+
         // 文件夹
-        File dir = new File("D:\\测试工程\\降水\\第二次");
+        File dir = new File("D:\\测试工程\\日照");
         for (File file : Objects.requireNonNull(dir.listFiles())) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file));
-                 SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false)) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file)); SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false)) {
                 String str;
-                HashSet<MeasureRainfall> measureRainfalls = new HashSet<>();
+                HashSet<MeasureSunshine> measureSunshines = new HashSet<>();
                 while ((str = reader.readLine()) != null) {
                     String formatStr = str.replaceAll(" +", " ");
                     String[] datas = formatStr.split(" ");
-                    if (datas.length != 13) {
+                    if (datas.length != 9) {
                         log.error("文件【{}】中的【{}】数据不合规！", file.getName(), str);
                         continue;
                     }
                     // 执行插入操作
-                    MeasureRainfall measureRainfall = new MeasureRainfall();
-                    measureRainfall.setSite(datas[0]);
-                    measureRainfall.setLatitude(datas[1]);
-                    measureRainfall.setLongitude(datas[2]);
-                    measureRainfall.setAltitude(datas[3]);
-                    measureRainfall.setYear(datas[4]);
-                    measureRainfall.setMonth(datas[5]);
-                    measureRainfall.setDay(datas[6]);
-                    measureRainfall.setRainfall208(datas[7]);
-                    measureRainfall.setRainfall820(datas[8]);
-                    measureRainfall.setRainfall2020(datas[9]);
-                    measureRainfall.setRainfallCode208(datas[10]);
-                    measureRainfall.setRainfallCode820(datas[11]);
-                    measureRainfall.setRainfallCode2020(datas[12]);
-                    boolean added = measureRainfalls.add(measureRainfall);
+                    MeasureSunshine measureSunshine = new MeasureSunshine();
+                    measureSunshine.setSite(datas[0]);
+                    measureSunshine.setLatitude(datas[1]);
+                    measureSunshine.setLongitude(datas[2]);
+                    measureSunshine.setAltitude(datas[3]);
+                    measureSunshine.setYear(datas[4]);
+                    measureSunshine.setMonth(datas[5]);
+                    measureSunshine.setDay(datas[6]);
+                    measureSunshine.setSunshineHour(datas[7]);
+                    measureSunshine.setSunshineHourCode(datas[8]);
+                    boolean added = measureSunshines.add(measureSunshine);
                     if (!added) {
                         log.error("文件【{}】中的【{}】数据存在重复！", file.getName(), str);
                     }
@@ -62,9 +60,9 @@ public class MeasureRainfallServiceImpl implements MeasureRainfallService {
 
                 // 执行数据库操作
                 int index = 0;
-                MeasureRainfallMapper measureRainfallMapper = sqlSession.getMapper(MeasureRainfallMapper.class);
-                for (MeasureRainfall measureRainfall : measureRainfalls) {
-                    measureRainfallMapper.insert(measureRainfall);
+                MeasureSunshineMapper measureSunshineMapper = sqlSession.getMapper(MeasureSunshineMapper.class);
+                for (MeasureSunshine measureSunshine : measureSunshines) {
+                    measureSunshineMapper.insert(measureSunshine);
                     index++;
 
                     // 每10000条提交一次

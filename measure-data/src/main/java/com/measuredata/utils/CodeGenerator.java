@@ -12,7 +12,7 @@ import java.util.Collections;
  */
 public class CodeGenerator {
     public static void main(String[] args) {
-        FastAutoGenerator.create(new DataSourceConfig.Builder("jdbc:mysql://localhost:3306/spring?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&useSSL=false", "root", "123456")
+        FastAutoGenerator.create(new DataSourceConfig.Builder("jdbc:mysql://localhost:3306/measure?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&useSSL=false", "root", "123456")
 //                        .schema("spring")// 设置schemaName
 //                        .typeConvert(new MySqlTypeConvert())
                 )
@@ -28,7 +28,7 @@ public class CodeGenerator {
                             .moduleName("measuredata") // 设置父包模块名
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "D://IDEAWorkSpace//simple-project//measure-data//src//test//java//com//measuredata//mapper")); // 设置mapperXml生成路径
                 }).strategyConfig(builder -> {
-                    builder.addInclude("MEASURE_RAINFALL") // 设置需要生成的表名
+                    builder.addInclude("MEASURE_SUNSHINE") // 设置需要生成的表名
                             //.addTablePrefix("p_", "c_") // 设置过滤表前缀
                             // 实体类构造器
                             .entityBuilder().enableLombok()// 使用lombok

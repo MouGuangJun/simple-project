@@ -3,6 +3,7 @@ package com.measuredata.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * <p>
@@ -14,6 +15,7 @@ import lombok.Data;
  */
 @Data
 @TableName("measure_rainfall")
+@EqualsAndHashCode(exclude = {"rainfall208", "rainfall820", "rainfall2020", "rainfallCode208", "rainfallCode820", "rainfallCode2020"})
 public class MeasureRainfall {
 
     /**
