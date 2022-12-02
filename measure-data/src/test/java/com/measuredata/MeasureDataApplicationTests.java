@@ -1,5 +1,6 @@
 package com.measuredata;
 
+import com.measuredata.service.MeasureHeatService;
 import com.measuredata.service.MeasureRainfallService;
 import com.measuredata.service.MeasureSunshineService;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,9 @@ class MeasureDataApplicationTests {
     @Autowired
     private MeasureSunshineService measureSunshineService;
 
+    @Autowired
+    private MeasureHeatService measureHeatService;
+
     @Test
     void rainfallWrite2DB() {
         measureRainfallService.write2DB();
@@ -24,6 +28,11 @@ class MeasureDataApplicationTests {
     @Test
     void sunShineWrite2DB() {
         measureSunshineService.write2DB();
+    }
+
+    @Test
+    void heatWrite2DB() {
+        measureHeatService.write2DB();
     }
 
 }
