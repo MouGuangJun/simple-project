@@ -1,9 +1,7 @@
 package com.measuredata.service;
 
 import com.measuredata.entity.MeasureHeat;
-import com.measuredata.entity.MeasureRainfall;
 import com.measuredata.mapper.MeasureHeatMapper;
-import com.measuredata.mapper.MeasureRainfallMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.ExecutorType;
